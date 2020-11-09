@@ -1,15 +1,15 @@
 /**
- * Nick Wright
- * 040911884
+ * Nick Wright & Kevin Luu
+ * 040911884 & 040905303
  * CST8244
  */
 
-#include "des.h"
+#include "../../des_controller/src/des.h"
 
 int main(void) {
 
-	client_sent_t msg_send;
-	server_response_t msg_receive;
+	Display client_message;
+	Display response;
 	int rcvid;
 	int chid;
 
@@ -38,26 +38,29 @@ int main(void) {
 		MsgReply(rcvid, EOK, &response, sizeof(response));
 
 		//IF message == ID_SCAN THEN
-
-		//Print person has been scanned entering (or leaving) the building and display the person's ID
-
+		if (client_message.message == Output.ID_SCAN){
+			//Print person has been scanned entering (or leaving)
+			//the building and display the person's ID
+		}
 		//ELSE IF message = WEIGHED THEN
-
-		//Print person has been weighed and their weight
-
+		else if (client_message.message == Output.WEIGHED){
+			//Print person has been weighed and their weight
+		}
 		//ELSE // regular message
-
-		//Print message to Neutrino console (i.e. stdout)
-
-		//IF message == EXIT THEN
-
-		//break out of while loop
+		else if (client_message.message != Output.EXIT){
+			//Print message to Neutrino console (i.e. stdout)
+		}
+		else {
+			//IF message == EXIT THEN
+			//break out of while loop
+			break;
+		}
 
 	}
 
-
+	//PHASE III
 	//Call ChannelDestroy() to destroy the channel that controller attaches to
-	ChannelDestroy();
+	ChannelDestroy(chid);
 	exit(EXIT_SUCESS);
 
 }
