@@ -38,26 +38,27 @@ int main(void) {
 		MsgReply(rcvid, EOK, &response, sizeof(response));
 
 		//IF message == ID_SCAN THEN
-		if (client_message.message == Output.ID_SCAN){
+		if (client_message.output == Output.ID_SCAN){
 			//Print person has been scanned entering (or leaving)
 			//the building and display the person's ID
+			printf("%s %d",outMessage[client_message.output], client_message.person.id);
 		}
 		//ELSE IF message = WEIGHED THEN
-		else if (client_message.message == Output.WEIGHED){
+		else if (client_message.output == Output.WEIGHED){
 			//Print person has been weighed and their weight
+			printf("%s %d",outMessage[client_message.output], client_message.person.weight);
 		}
 		//ELSE // regular message
-		else if (client_message.message != Output.EXIT){
-			//Print message to Neutrino console (i.e. stdout)
-		}
 		else {
+			printf("%s", outMessage[client_message.output]);
 			//IF message == EXIT THEN
 			//break out of while loop
-			break;
+			if(client_message.output == Output.EXIT){
+				break;
+			}
 		}
 
 	}
-
 	//PHASE III
 	//Call ChannelDestroy() to destroy the channel that controller attaches to
 	ChannelDestroy(chid);
