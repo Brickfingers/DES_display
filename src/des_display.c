@@ -25,7 +25,7 @@ int main(void) {
 	printf("display's PID is %d\tAnd the Channel ID (chid) is: %d\n", getpid(),
 			chid);
 
-	while( TRUE ) {
+	while( 1 ) {
 
 		//Call MsgReceive() to receive Display object from controller
 		rcvid = MsgReceive(chid, &client_message, sizeof(client_message), NULL);
@@ -38,13 +38,13 @@ int main(void) {
 		MsgReply(rcvid, EOK, &response, sizeof(response));
 
 		//IF message == ID_SCAN THEN
-		if (client_message.output == Output.ID_SCAN){
+		if (client_message.output == ID_SCAN){
 			//Print person has been scanned entering (or leaving)
 			//the building and display the person's ID
 			printf("%s %d",outMessage[client_message.output], client_message.person.id);
 		}
 		//ELSE IF message = WEIGHED THEN
-		else if (client_message.output == Output.WEIGHED){
+		else if (client_message.output == WEIGHED){
 			//Print person has been weighed and their weight
 			printf("%s %d",outMessage[client_message.output], client_message.person.weight);
 		}
@@ -53,7 +53,7 @@ int main(void) {
 			printf("%s", outMessage[client_message.output]);
 			//IF message == EXIT THEN
 			//break out of while loop
-			if(client_message.output == Output.EXIT){
+			if(client_message.output == EXIT){
 				break;
 			}
 		}
@@ -62,6 +62,6 @@ int main(void) {
 	//PHASE III
 	//Call ChannelDestroy() to destroy the channel that controller attaches to
 	ChannelDestroy(chid);
-	exit(EXIT_SUCESS);
+	exit(EXIT_SUCCESS);
 
 }
