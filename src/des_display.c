@@ -38,7 +38,7 @@ int main(void) {
 		MsgReply(rcvid, EOK, &response, sizeof(response));
 
 		//IF message == ID_SCAN THEN
-		if (client_message.output == ID_SCAN){
+		if (client_message.output == ID_SCANNED){
 			//Print person has been scanned entering (or leaving)
 			//the building and display the person's ID
 			printf("%s %d",outMessage[client_message.output], client_message.person.id);
